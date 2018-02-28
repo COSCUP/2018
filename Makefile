@@ -1,4 +1,4 @@
-all:
+all: build page push-page
 
 build:
 	rsync -av --delete src/ dist/
