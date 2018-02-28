@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta name="description" content="COSCUP 為 Open Source 愛好者交流與分享的大型開放原始碼研討會，更是台灣自由軟體運動重要的推動者之一，COSCUP 2018 期待與您相見。" />
+		<meta property="og:title" content="COSCUP 2018" />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="assets/logo-og-1600x1000.png" />
+		<meta property="og:image:width" content="1600" />
+		<meta property="og:image:height" content="1000" />
+		<meta property="og:site_name" content="COSCUP 2018" />
+		<meta property="og:description" content="COSCUP 為 Open Source 愛好者交流與分享的大型開放原始碼研討會，更是台灣自由軟體運動重要的推動者之一，COSCUP 2018 期待與您相見。" />
+		<meta property="twitter:title" content="COSCUP 2018" />
+		<meta property="twitter:description" content="COSCUP 為 Open Source 愛好者交流與分享的大型開放原始碼研討會，更是台灣自由軟體運動重要的推動者之一，COSCUP 2018 期待與您相見。" />
+		<title>COSCUP 2018 | Coming soon...</title>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" />
+		<link rel="stylesheet" type="text/css" href="https://unpkg.com/reveal.js@3.6.0/css/reveal.css" />
+		<link rel="stylesheet" type="text/css" href="https://unpkg.com/reveal.js@3.6.0/css/theme/white.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
+		<script type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/babel-polyfill@6.23.0/dist/polyfill.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/js-yaml@3.10.0/dist/js-yaml.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/reveal.js@3.6.0/js/reveal.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/reveal.js@3.6.0/plugin/markdown/marked.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/reveal.js@3.6.0/plugin/markdown/markdown.js"></script>
+		<style type="text/css">
+			html, body {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+			.reveal,
+			.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+				font-family: 'Noto Sans TC', sans-serif;
+			}
+
+			.reveal section img {
+				border: none;
+				box-shadow: initial;
+			}
+
+			.reveal h1 {
+				font-size: 2em;
+			}
+
+			.reveal #home h1 {
+				display: none;
+			}
+
+			.reveal #links a {
+				color: #333;
+				opacity: .8;
+			}
+			.reveal #links a:hover {
+				opacity: 1;
+			}
+			.reveal #links a img {
+				height: 2em;
+			}
+			.reveal #links a:hover img {
+				border: none;
+				box-shadow: initial;
+				height: 2em;
+			}
+
+			.reveal #links ul {
+				display: block;
+				list-style-type: none;
+				padding: 0;
+				margin: 0;
+				text-align: center;
+			}
+			.reveal #links ul li {
+				display: inline-block;
+				padding: 0 .1em 0 0;
+			}
+
+			.reveal #links ul li#histories ~ li {
+				margin: .2em .1em 0;
+			}
+			.reveal #links ul li#histories ~ li a {
+				border-radius: .1em;
+				background-color: #333;
+				color: #fff;
+				display: block;
+				padding: 0 .2em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides" id="slides-container">
+			</div>
+		</div>
+
+		<script type="text/babel" data-presets="es2015,stage-1">
+			function parseData(data) {
+				if (data.indexOf("---\n") === 0) { // has YAML header
+					let endOf = data.indexOf("\n---\n", 3)
+					if (endOf === -1) { // invalid YAML, skip
+						return ({
+							yaml: {},
+							data: data.substr(3)
+						})
+					}
+
+					return ({
+						yaml: jsyaml.load(data.substr(0, endOf)),
+						data: data.substr(endOf + 5)
+					})
+				}
+
+				return ({
+					yaml: {},
+					data
+				})
+			}
+
+			const overrideHomeStyle = root => {
+				const homeSlide = document.getElementById('home')
+				if (!homeSlide) return
+				homeSlide.setAttribute('data-background-image', './assets/logo-og-1600x1000.png')
+				homeSlide.setAttribute('data-background-size', '80%')
+			}
+			const convertTBDStyle = root => {
+				for (let tbdSlide of root.querySelectorAll('[data-tbd=true]')) {
+					tbdSlide.setAttribute('data-background-image', './assets/tbd.png')
+					tbdSlide.setAttribute('data-background-size', 'unset')
+					tbdSlide.setAttribute('data-background-position', '100% 0')
+				}
+			}
+			const createMarkdownSection = (markdownData) => {
+				const outerDOM = document.createElement('section')
+				outerDOM.setAttribute('data-markdown', '')
+				outerDOM.setAttribute('data-separator', '^\n---\n$')
+				outerDOM.setAttribute('data-separator-vertical', '^\n----\n$')
+				const templateDOM = document.createElement('textarea')
+				templateDOM.setAttribute('data-template', '')
+				templateDOM.innerHTML = markdownData
+				outerDOM.appendChild(templateDOM)
+
+				return outerDOM
+			}
+
+			const container = document.getElementById('slides-container')
+			;(async function() {
+				const fetchData = await fetch('https://david50407.github.io/symmetrical-octo-happiness/index.md')
+				const rawData = await fetchData.text()
+				const { yaml: yamlOptions, data: markdownData } = parseData(rawData)
+				container.appendChild(createMarkdownSection(markdownData))
+
+				RevealMarkdown.processSlides()
+				RevealMarkdown.convertSlides()
+				overrideHomeStyle(container)
+				convertTBDStyle(container)
+				Reveal.initialize({
+					...(yamlOptions.slideOptions || {}),
+
+					progress: false,
+					controlsLayout: 'edges',
+					history: true,
+					mouseWheel: true,
+					margin: 0.2
+				})
+			})()
+		</script>
+	</body>
+</html>
