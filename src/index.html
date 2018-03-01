@@ -120,7 +120,7 @@
 			}
 
 			const overrideHomeStyle = root => {
-				const homeSlide = document.getElementById('home')
+				const homeSlide = root.querySelector('#home')
 				if (!homeSlide) return
 				homeSlide.setAttribute('data-background-image', './assets/logo-og-1600x1000.png')
 				homeSlide.setAttribute('data-background-size', '80%')
