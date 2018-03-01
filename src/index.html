@@ -153,11 +153,31 @@
 
 				return outerDOM
 			}
+			const fetchData = async () => {
+				try {
+					let liveDataRequest = await fetch('https://hackmd.io/BJ5BvWSOf/download')
+					if (liveDataRequest.ok) {
+						return await liveDataRequest.text()
+					}
+				} catch (_) {}
+
+				try {
+					let backupDataRequest = await fetch('https://david50407.github.io/symmetrical-octo-happiness/index.md')
+					if (backupDataRequest.ok) {
+						return await backupDataRequest.text()
+					}
+				} catch (_) {}
+
+				return `
+<!-- .slide: id="home" -->
+
+# COSCUP 2018
+				`
+			}
 
 			const container = document.getElementById('slides-container')
 			;(async function() {
-				const fetchData = await fetch('https://david50407.github.io/symmetrical-octo-happiness/index.md')
-				const rawData = await fetchData.text()
+				const rawData = await fetchData()
 				const { yaml: yamlOptions, data: markdownData } = parseData(rawData)
 				container.appendChild(createMarkdownSection(markdownData))
 
