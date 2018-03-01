@@ -18,7 +18,6 @@
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" />
 		<link rel="stylesheet" type="text/css" href="https://unpkg.com/reveal.js@3.6.0/css/reveal.css" />
 		<link rel="stylesheet" type="text/css" href="https://unpkg.com/reveal.js@3.6.0/css/theme/white.css" />
-		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
 		<script type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 		<script type="text/javascript" src="https://unpkg.com/babel-polyfill@6.23.0/dist/polyfill.min.js"></script>
 		<script type="text/javascript" src="https://unpkg.com/js-yaml@3.10.0/dist/js-yaml.min.js"></script>
@@ -121,7 +120,7 @@
 			}
 
 			const overrideHomeStyle = root => {
-				const homeSlide = document.getElementById('home')
+				const homeSlide = root.querySelector('#home')
 				if (!homeSlide) return
 				homeSlide.setAttribute('data-background-image', './assets/logo-og-1600x1000.png')
 				homeSlide.setAttribute('data-background-size', '80%')
@@ -131,6 +130,15 @@
 					tbdSlide.setAttribute('data-background-image', './assets/tbd.png')
 					tbdSlide.setAttribute('data-background-size', 'unset')
 					tbdSlide.setAttribute('data-background-position', '100% 0')
+				}
+			}
+			const autoNewTabLink = root => {
+				for (let link of root.getElementsByTagName('a')) {
+					if (!!link.getAttribute('target')) continue
+					if (!link.getAttribute('href')) continue
+					if (link.getAttribute('href')[0] === '#') continue
+
+					link.setAttribute('target', '_blank')
 				}
 			}
 			const createMarkdownSection = (markdownData) => {
@@ -145,11 +153,31 @@
 
 				return outerDOM
 			}
+			const fetchData = async () => {
+				try {
+					let liveDataRequest = await fetch('https://hackmd.io/BJ5BvWSOf/download')
+					if (liveDataRequest.ok) {
+						return await liveDataRequest.text()
+					}
+				} catch (_) {}
+
+				try {
+					let backupDataRequest = await fetch('https://david50407.github.io/symmetrical-octo-happiness/index.md')
+					if (backupDataRequest.ok) {
+						return await backupDataRequest.text()
+					}
+				} catch (_) {}
+
+				return `
+<!-- .slide: id="home" -->
+
+# COSCUP 2018
+				`
+			}
 
 			const container = document.getElementById('slides-container')
 			;(async function() {
-				const fetchData = await fetch('https://david50407.github.io/symmetrical-octo-happiness/index.md')
-				const rawData = await fetchData.text()
+				const rawData = await fetchData()
 				const { yaml: yamlOptions, data: markdownData } = parseData(rawData)
 				container.appendChild(createMarkdownSection(markdownData))
 
@@ -157,6 +185,7 @@
 				RevealMarkdown.convertSlides()
 				overrideHomeStyle(container)
 				convertTBDStyle(container)
+				autoNewTabLink(container)
 				Reveal.initialize({
 					...(yamlOptions.slideOptions || {}),
 
