@@ -132,6 +132,15 @@
 					tbdSlide.setAttribute('data-background-position', '100% 0')
 				}
 			}
+			const autoNewTabLink = root => {
+				for (let link of root.getElementsByTagName('a')) {
+					if (!!link.getAttribute('target')) continue
+					if (!link.getAttribute('href')) continue
+					if (link.getAttribute('href')[0] === '#') continue
+
+					link.setAttribute('target', '_blank')
+				}
+			}
 			const createMarkdownSection = (markdownData) => {
 				const outerDOM = document.createElement('section')
 				outerDOM.setAttribute('data-markdown', '')
@@ -156,6 +165,7 @@
 				RevealMarkdown.convertSlides()
 				overrideHomeStyle(container)
 				convertTBDStyle(container)
+				autoNewTabLink(container)
 				Reveal.initialize({
 					...(yamlOptions.slideOptions || {}),
 
