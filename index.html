@@ -216,8 +216,20 @@
 					controlsLayout: 'edges',
 					hideAddressBar: false,
 					history: true,
+					transition: 'concave',
 					mouseWheel: false, // We are going to hack by our self
-					margin: 0.2
+					margin: 0.2,
+					keyboard: { // we are going to disable some built-in features
+						// Disable "pause" feature
+						// ref: https://github.com/hakimel/reveal.js/blob/7991693bde3ee680868dfbfa1291d96735571c22/js/reveal.js#L4495
+						// two-spot, semicolon, b, v, period, Logitech presenter tools "black screen" button
+						58: null,
+						59: null,
+						66: null,
+						86: null,
+						190: null,
+						191: null
+					}
 				})
 
 				// Happy scrolling hack for preventing inertia scrolling :tada:
