@@ -63,15 +63,13 @@ module.exports = {
       'zh-tw',
       'ja',
     ]],
-    ['~/modules/google-maps.js', {
-      key: 'AIzaSyBXDjcMb0gqT_UwYSYSsA6WlJr3tu1uRyc',
-    }],
     ['~/modules/static-route.js', {
       locales: locales,
       defaultLocale: 'zh-TW',
     }],
     '@nuxtjs/sitemap',
     'nuxt-fontawesome',
+    'nuxt-leaflet',
   ],
   plugins: [
     {

@@ -1,32 +1,31 @@
 <template>
   <main class="direction">
-    <Map
-      class="location"
-      :center="location"
-      :zoom="16"
-    >
-      <MapCluster>
-        <MapInfoWindow
-          :position="location"
-          :opened="infoWindowOpened"
-          :options="{
-            pixelOffset: {
-              width: 0,
-              height: -42,
-            },
-          }"
-          @closeclick="infoWindowOpened = false"
+    <div class="location">
+      <no-ssr>
+        <l-map
+          :center="[location.lat, location.lng]"
+          :zoom="16"
         >
-          <h4>{{ place }}</h4>
-          {{ address }}
-        </MapInfoWindow>
-        <MapMarker
-          :position="location"
-          :clickable="true"
-          @click="infoWindowOpened = true"
-        />
-      </MapCluster>
-    </Map>
+          <l-tile-layer
+            :url="tileLayer.url"
+            :attribution="tileLayer.attribution"
+          />
+          <l-marker
+            ref="locationMarker"
+            :lat-lng="location"
+          >
+            <l-popup :options="{
+              autoClose: false,
+              closeOnClick: false,
+            }"
+            >
+              <h4>{{ place }}</h4>
+              {{ address }}
+            </l-popup>
+          </l-marker>
+        </l-map>
+      </no-ssr>
+    </div>
     <div class="transportations container">
       <div class="method"
         v-for="(direction, method) in transportations"
@@ -51,17 +50,10 @@ import {
   State,
   namespace,
 } from 'vuex-class'
-import {
-  Map,
-  Cluster as MapCluster,
-  Marker as MapMarker,
-  InfoWindow as MapInfoWindow,
-} from 'vue2-google-maps'
 
 import {
   name as transportationStoreName,
 } from '~/store/transportation'
-
 
 import Card from '~/components/Card.vue'
 import Sponsor from '~/components/Sponsor.vue'
@@ -71,10 +63,6 @@ const TransportationState = namespace(transportationStoreName, State)
 @Component({
   components: {
     Card,
-    Map,
-    MapCluster,
-    MapMarker,
-    MapInfoWindow,
   },
 })
 export default class extends Vue {
@@ -83,10 +71,22 @@ export default class extends Vue {
   @TransportationState('transportation') transportations
   @TransportationState place
 
-  infoWindowOpened : boolean = true
+  mounted() {
+    this.$nextTick(() => {
+      const locationMarker : any = this.$refs.locationMarker
+      locationMarker.mapObject.openPopup()
+    })
+  }
 
   async fetch({ store: { dispatch } }) {
     await dispatch(`${transportationStoreName}/fetchData`)
+  }
+
+  get tileLayer () {
+    return {
+      url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    }
   }
 }
 </script>
