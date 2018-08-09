@@ -48,16 +48,6 @@
  * Vis.js may be distributed under either license.
  */
 
-//! moment.js
-
-//! version : 2.19.1
-
-//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
-
-//! license : MIT
-
-//! momentjs.com
-
 /*! Hammer.JS - v2.0.7 - 2016-04-22
  * http://hammerjs.github.io/
  *
@@ -140,16 +130,6 @@ and limitations under the License.
  *
  * Vis.js may be distributed under either license.
  */
-
-//! moment.js
-
-//! version : 2.19.1
-
-//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
-
-//! license : MIT
-
-//! momentjs.com
 
 /*! Hammer.JS - v2.0.7 - 2016-04-22
  * http://hammerjs.github.io/
@@ -332,7 +312,7 @@ and limitations under the License.
   */
 
 /*!
- * Vue.js v2.5.16
+ * Vue.js v2.5.17
  * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
@@ -354,8 +334,6 @@ and limitations under the License.
  * (c) 2017 Evan You
  * @license MIT
  */
-
-//! moment.js
 
 /*!
  * vue-i18n v7.6.0 
@@ -382,7 +360,7 @@ and limitations under the License.
  */
 
 /**
- * vue-meta v1.5.0
+ * vue-meta v1.5.2
  * (c) 2018 Declan de Wet & Atinux
  * @license MIT
  */
