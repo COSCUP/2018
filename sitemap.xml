@@ -85,7 +85,7 @@
 <url> <loc>https://2018.coscup.org/programs/risc-v-ftrace-perf</loc> </url>
 <url> <loc>https://2018.coscup.org/programs/open-vswitch</loc> </url>
 <url> <loc>https://2018.coscup.org/programs/ansible-and-opensuse-workshop</loc> </url>
-<url> <loc>https://2018.coscup.org/programs/linux-iptalbes</loc> </url>
+<url> <loc>https://2018.coscup.org/programs/linux-iptables</loc> </url>
 <url> <loc>https://2018.coscup.org/programs/family-workshop-2</loc> </url>
 <url> <loc>https://2018.coscup.org/programs/traefik-on-k8s</loc> </url>
 <url> <loc>https://2018.coscup.org/programs/ethereum-layer-2-solutions</loc> </url>
@@ -325,7 +325,7 @@
 <url> <loc>https://2018.coscup.org/en/programs/risc-v-ftrace-perf</loc> </url>
 <url> <loc>https://2018.coscup.org/en/programs/open-vswitch</loc> </url>
 <url> <loc>https://2018.coscup.org/en/programs/ansible-and-opensuse-workshop</loc> </url>
-<url> <loc>https://2018.coscup.org/en/programs/linux-iptalbes</loc> </url>
+<url> <loc>https://2018.coscup.org/en/programs/linux-iptables</loc> </url>
 <url> <loc>https://2018.coscup.org/en/programs/family-workshop-2</loc> </url>
 <url> <loc>https://2018.coscup.org/en/programs/traefik-on-k8s</loc> </url>
 <url> <loc>https://2018.coscup.org/en/programs/ethereum-layer-2-solutions</loc> </url>
