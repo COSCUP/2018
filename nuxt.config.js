@@ -46,6 +46,7 @@ const generateRoutesFromAPI = (function () {
 })()
 
 module.exports = {
+  router: { base :'/2018/'},
   /*
   ** Headers of the page
   */
@@ -57,7 +58,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'COSCUP x GNOME.Asia x openSUSE.Asia 2018' },
       { hid: 'og:title', property: 'og:title', content: 'COSCUP x GNOME.Asia x openSUSE.Asia 2018' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
-      { hid: 'og:image', property: 'og:image', content: 'https://2018.coscup.org/logo-512.png' },
+      { hid: 'og:image', property: 'og:image', content: 'https://coscup.org/2018/logo-512.png' },
       { hid: 'og:image:width', property: 'og:image:width', content: '512' },
       { hid: 'og:image:height', property: 'og:image:height', content: '512' }
     ],
@@ -140,7 +141,7 @@ module.exports = {
     concurrency: 10,
   },
   sitemap: {
-    hostname: 'https://2018.coscup.org',
+    hostname: 'https://coscup.org/2018',
     generate: true,
     routes: async function () {
       const routes = await generateRoutesFromAPI()
